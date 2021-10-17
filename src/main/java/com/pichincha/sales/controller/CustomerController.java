@@ -28,7 +28,7 @@ public class CustomerController {
         Map<String, Object> response = new HashMap<>();
         List<CustomerEntity> customer = new ArrayList<>();
         try {
-            log.info("Request to find customer" + new Date());
+            log.info("Request to find customers" + new Date());
             customer = customerService.getAll();
 
         } catch (DataAccessException e) {

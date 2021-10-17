@@ -1,6 +1,7 @@
 package com.pichincha.sales.serviceImpl;
 
 import com.pichincha.sales.entity.ProductEntity;
+import com.pichincha.sales.entity.SupplierEntity;
 import com.pichincha.sales.repository.IProductRepository;
 import com.pichincha.sales.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,11 @@ public class ProductServiceImpl implements IProductService {
     public void delete(Long id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public List<ProductEntity> getProductStock(SupplierEntity supplier) {
+        return productRepository.getProductStock(supplier);
+    }
+
+
 }

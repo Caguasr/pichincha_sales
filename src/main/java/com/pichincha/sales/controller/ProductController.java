@@ -1,6 +1,7 @@
 package com.pichincha.sales.controller;
 
 import com.pichincha.sales.entity.ProductEntity;
+import com.pichincha.sales.entity.SupplierEntity;
 import com.pichincha.sales.serviceImpl.ProductServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -26,6 +24,22 @@ public class ProductController {
     @Autowired
     private ProductServiceImpl productService;
 
+
+    @PostMapping("/product/stock")
+    private ResponseEntity<?> getStockProducts(@RequestBody SupplierEntity supplier) {
+        Map<String, Object> response = new HashMap<>();
+        List<ProductEntity> products = new ArrayList<>();
+        try {
+            log.info("Request to find products in stock" + new Date());
+            products = productService.getProductStock(supplier);
+
+        } catch (DataAccessException e) {
+            response.put("message", "Error processing transaction");
+            response.put("error", e.getMessage());
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<List<ProductEntity>>(products, HttpStatus.OK);
+    }
 
     @PostMapping("/product")
     private ResponseEntity<?> create(@Valid @RequestBody ProductEntity product, BindingResult result) {

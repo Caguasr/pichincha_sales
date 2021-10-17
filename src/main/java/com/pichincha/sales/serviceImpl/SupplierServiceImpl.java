@@ -33,4 +33,6 @@ public class SupplierServiceImpl implements ISupplierService {
     public SupplierEntity alreadyUserCreate(String ruc) {
         return supplierRepository.alreadyUserCreated(ruc);
     }
+
+
 }

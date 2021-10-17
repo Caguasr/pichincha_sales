@@ -40,6 +40,7 @@ public class SupplierController {
         return new ResponseEntity<List<SupplierEntity>>(supplier, HttpStatus.OK);
     }
 
+
     @PostMapping("/supplier")
     private ResponseEntity<?> create(@Valid @RequestBody SupplierEntity supplier, BindingResult result) {
         Map<String, Object> response = new HashMap<>();

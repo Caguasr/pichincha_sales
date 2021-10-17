@@ -13,4 +13,5 @@ public interface ISupplierRepository extends JpaRepository<SupplierEntity, Long>
 
     @Query("select u from SupplierEntity u  where u.ruc = ?1 and u.active = 0")
     SupplierEntity alreadyUserCreated(String ruc);
+
 }

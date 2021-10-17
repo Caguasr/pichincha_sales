@@ -15,4 +15,5 @@ public interface ISupplierService {
 
     public SupplierEntity alreadyUserCreate(String ruc);
 
+
 }

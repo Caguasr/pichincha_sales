@@ -29,7 +29,7 @@ public class DetailOrderEntity implements Serializable {
     private Integer quantity;
 
     @NotNull(message = "must not be empty")
-    @JsonIgnoreProperties({"hibernateLazyInitializer"})
+    @JsonIgnoreProperties({"supplier","hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private ProductEntity product;
 
