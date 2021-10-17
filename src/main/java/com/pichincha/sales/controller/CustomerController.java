@@ -24,7 +24,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("/customer")
-    private ResponseEntity<?> getById() {
+    private ResponseEntity<?> getAll() {
         Map<String, Object> response = new HashMap<>();
         List<CustomerEntity> customer = new ArrayList<>();
         try {
