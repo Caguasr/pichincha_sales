@@ -12,5 +12,5 @@ public interface IProductService {
 
     public ProductEntity getById(Long id);
 
-    public ProductEntity delete(Long id);
+    public void delete(Long id);
 }

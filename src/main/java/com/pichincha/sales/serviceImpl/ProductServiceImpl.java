@@ -30,7 +30,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ProductEntity delete(Long id) {
-        return null;
+    public void delete(Long id) {
+        productRepository.deleteById(id);
     }
 }

@@ -12,46 +12,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Log4j2
 @RestController
 @RequestMapping("/api")
-@CrossOrigin()
+@CrossOrigin(origins = {"http://localhost:3000/"})
 public class SupplierController {
 
     @Autowired
     private SupplierServiceImpl supplierService;
-
-
-    @GetMapping("/supplier/{id}")
-    private ResponseEntity<?> getById(@PathVariable Long id) {
-        Map<String, Object> response = new HashMap<>();
-        SupplierEntity supplier = null;
-        try {
-            log.info("------------------" + id + "-------------------------");
-            supplier = supplierService.getById(id);
-            if (supplier == null) {
-                response.put("message", "Supplier not found");
-                return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-            }
-        } catch (DataAccessException e) {
-            response.put("message", "Error processing transaction");
-            response.put("error", e.getMessage());
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<SupplierEntity>(supplier, HttpStatus.OK);
-    }
 
     @GetMapping("/supplier")
     private ResponseEntity<?> getById() {
         Map<String, Object> response = new HashMap<>();
         List<SupplierEntity> supplier = new ArrayList<>();
         try {
+            log.info("Request to find suppliers" + new Date());
             supplier = supplierService.getAll();
 
         } catch (DataAccessException e) {
@@ -65,6 +43,7 @@ public class SupplierController {
     @PostMapping("/supplier")
     private ResponseEntity<?> create(@Valid @RequestBody SupplierEntity supplier, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
+        log.info("Request to create supplier" + new Date());
         if (result.hasErrors()) {
             List<String> errors = result.getFieldErrors().stream().map(err -> "The field " + err.getField() + " "+err.getDefaultMessage()).collect(Collectors.toList());
             response.put("errors", errors);
@@ -95,6 +74,7 @@ public class SupplierController {
     private ResponseEntity<?> update(@PathVariable Long id, @RequestBody SupplierEntity supplier) {
         Map<String, Object> response = new HashMap<>();
         SupplierEntity oldSupplier = null;
+        log.info("Request to update supplier" + new Date());
         try {
 
             oldSupplier = supplierService.getById(id);
@@ -127,6 +107,7 @@ public class SupplierController {
     private ResponseEntity<?> delete(@PathVariable Long id) {
 
         Map<String, Object> response = new HashMap<>();
+        log.info("Request to delete product" + new Date());
         try {
             SupplierEntity supplier = supplierService.getById(id);
             if (supplier == null) {
