@@ -25,7 +25,7 @@ public class SupplierController {
     private SupplierServiceImpl supplierService;
 
     @GetMapping("/supplier")
-    private ResponseEntity<?> getById() {
+    private ResponseEntity<?> getAll() {
         Map<String, Object> response = new HashMap<>();
         List<SupplierEntity> supplier = new ArrayList<>();
         try {
@@ -66,9 +66,9 @@ public class SupplierController {
             response.put("error", e.getMessage());
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        response.put("message", "User created successfully");
+        response.put("message", "Supplier created successfully");
         response.put("data", supplier);
-        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/supplier/{id}")
@@ -92,7 +92,7 @@ public class SupplierController {
             }
             oldSupplier.setUpdateAt(supplier.setDateUpdate());
             supplierService.save(oldSupplier);
-            response.put("message", "User update successfully");
+            response.put("message", "Supplier update successfully");
             response.put("data", oldSupplier);
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 
@@ -108,7 +108,7 @@ public class SupplierController {
     private ResponseEntity<?> delete(@PathVariable Long id) {
 
         Map<String, Object> response = new HashMap<>();
-        log.info("Request to delete product" + new Date());
+        log.info("Request to delete supplier" + new Date());
         try {
             SupplierEntity supplier = supplierService.getById(id);
             if (supplier == null) {

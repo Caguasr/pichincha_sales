@@ -33,14 +33,13 @@ public class OrderController {
         Map<String, Object> response = new HashMap<>();
         List<OrderEntity> orders = new ArrayList<>();
         try {
-            log.info("Request to find orders  by Date " + new Date());
+            log.info("Request to find orders  by Date " + since + "-" +until+ new Date());
             SimpleDateFormat formatterDate=new SimpleDateFormat("yyyy-MM-dd");
             Date dateSince = formatterDate.parse(since);
             Date dateUntil = formatterDate.parse(until);
             java.sql.Date toSince = new java.sql.Date(dateSince.getTime());
             java.sql.Date toUntil = new java.sql.Date(dateUntil.getTime());
-            log.info(toSince);
-            log.info(toUntil);
+
             orders = orderService.getByDate(toSince, toUntil);
 
         } catch (DataAccessException | ParseException e) {
