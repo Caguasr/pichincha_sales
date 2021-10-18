@@ -46,6 +46,7 @@ public class ProductEntity implements Serializable {
     @Temporal(TemporalType.DATE)
     public Date updateAt;
 
+
     @PrePersist
     private void setData() {
         this.createdAt = new Date();

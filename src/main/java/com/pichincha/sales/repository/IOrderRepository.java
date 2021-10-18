@@ -10,5 +10,5 @@ import java.util.List;
 public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @Query("select u from OrderEntity u where u.createdAt between ?1 And ?2")
-    public List<OrderEntity> getOrderByDate(Date since, Date until);
+    List<OrderEntity> getOrderByDate(Date since, Date until);
 }

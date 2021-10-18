@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface IOderService {
 
-    public List<OrderEntity> getAll();
+    List<OrderEntity> getAll();
 
-    public  List<OrderEntity> getByDate(Date since, Date until);
+    List<OrderEntity> getByDate(Date since, Date until);
 
-    public OrderEntity create(OrderEntity order);
+    OrderEntity create(OrderEntity order);
 
-    public  void deleteById(Long id);
+    void deleteById(Long id);
 
 }

@@ -46,12 +46,12 @@ public class ProductController {
         Map<String, Object> response = new HashMap<>();
         log.info("Request to create product" + new Date());
         if (result.hasErrors()) {
-            List<String> errors = result.getFieldErrors().stream().map(err -> "The field " + err.getField() + " "+err.getDefaultMessage()).collect(Collectors.toList());
+            List<String> errors = result.getFieldErrors().stream().map(err -> "The field " + err.getField() + " " + err.getDefaultMessage()).collect(Collectors.toList());
             response.put("errors", errors);
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
         try {
-                productService.save(product);
+            productService.save(product);
 
         } catch (DataAccessException e) {
             response.put("message", "Error processing transaction");

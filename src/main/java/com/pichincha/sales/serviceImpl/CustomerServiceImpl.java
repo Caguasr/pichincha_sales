@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class CustomerService implements ICustomerService {
+public class CustomerServiceImpl implements ICustomerService {
 
     @Autowired
     private ICustomerRepository customerRepository;
@@ -19,6 +19,5 @@ public class CustomerService implements ICustomerService {
     @Transactional(readOnly = true)
     public List<CustomerEntity> getAll() {
         return customerRepository.findAll();
-
     }
 }

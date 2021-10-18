@@ -36,13 +36,13 @@ public class OrderEntity implements Serializable {
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
-    
-    OrderEntity(){
+
+    OrderEntity() {
         this.detail = new ArrayList<>();
     }
 
     @PrePersist
-    private void perPersist(){
+    private void perPersist() {
         this.createdAt = new Date();
     }
 

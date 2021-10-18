@@ -46,7 +46,7 @@ public class SupplierController {
         Map<String, Object> response = new HashMap<>();
         log.info("Request to create supplier" + new Date());
         if (result.hasErrors()) {
-            List<String> errors = result.getFieldErrors().stream().map(err -> "The field " + err.getField() + " "+err.getDefaultMessage()).collect(Collectors.toList());
+            List<String> errors = result.getFieldErrors().stream().map(err -> "The field " + err.getField() + " " + err.getDefaultMessage()).collect(Collectors.toList());
             response.put("errors", errors);
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
@@ -58,7 +58,7 @@ public class SupplierController {
                 supplierExists.setUpdateAt(supplier.setDateUpdate());
                 supplierService.save(supplierExists);
                 supplier = supplierExists;
-            }else{
+            } else {
                 supplierService.save(supplier);
             }
         } catch (DataAccessException e) {

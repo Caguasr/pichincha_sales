@@ -46,7 +46,7 @@ public class SupplierEntity implements Serializable {
     @Temporal(TemporalType.DATE)
     public Date updateAt;
 
-    SupplierEntity(){
+    SupplierEntity() {
         this.product = new ArrayList<>();
     }
 
@@ -56,7 +56,7 @@ public class SupplierEntity implements Serializable {
         this.active = 1;
     }
 
-    public Date setDateUpdate (){
+    public Date setDateUpdate() {
         return new Date();
     }
 }

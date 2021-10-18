@@ -2,9 +2,7 @@ package com.pichincha.sales.controller;
 
 
 import com.pichincha.sales.entity.OrderEntity;
-import com.pichincha.sales.entity.ProductEntity;
-import com.pichincha.sales.entity.SupplierEntity;
-import com.pichincha.sales.serviceImpl.OrderService;
+import com.pichincha.sales.serviceImpl.OrderServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,21 +24,21 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     @Autowired
-    private OrderService orderService;
+    private OrderServiceImpl orderServiceImpl;
 
     @GetMapping("/order/{since}/{until}")
-    private ResponseEntity<?> getOrderByDate(@PathVariable String since,  @PathVariable String until){
+    private ResponseEntity<?> getOrderByDate(@PathVariable String since, @PathVariable String until) {
         Map<String, Object> response = new HashMap<>();
         List<OrderEntity> orders = new ArrayList<>();
         try {
-            log.info("Request to find orders  by Date " + since + "-" +until+ new Date());
-            SimpleDateFormat formatterDate=new SimpleDateFormat("yyyy-MM-dd");
+            log.info("Request to find orders  by Date " + since + "-" + until + new Date());
+            SimpleDateFormat formatterDate = new SimpleDateFormat("yyyy-MM-dd");
             Date dateSince = formatterDate.parse(since);
             Date dateUntil = formatterDate.parse(until);
             java.sql.Date toSince = new java.sql.Date(dateSince.getTime());
             java.sql.Date toUntil = new java.sql.Date(dateUntil.getTime());
 
-            orders = orderService.getByDate(toSince, toUntil);
+            orders = orderServiceImpl.getByDate(toSince, toUntil);
 
         } catch (DataAccessException | ParseException e) {
             response.put("message", "Error processing transaction");
@@ -55,12 +53,12 @@ public class OrderController {
         Map<String, Object> response = new HashMap<>();
         log.info("Request to create order" + new Date());
         if (result.hasErrors()) {
-            List<String> errors = result.getFieldErrors().stream().map(err -> "The field " + err.getField() + " "+err.getDefaultMessage()).collect(Collectors.toList());
+            List<String> errors = result.getFieldErrors().stream().map(err -> "The field " + err.getField() + " " + err.getDefaultMessage()).collect(Collectors.toList());
             response.put("errors", errors);
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
         try {
-            orderService.create(order);
+            orderServiceImpl.create(order);
 
         } catch (DataAccessException e) {
             response.put("message", "Error processing transaction");
@@ -68,7 +66,7 @@ public class OrderController {
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         response.put("message", "Order created successfully");
-        response.put("data",order);
+        response.put("data", order);
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 
@@ -78,7 +76,7 @@ public class OrderController {
         Map<String, Object> response = new HashMap<>();
         try {
             log.info("Request to delete the order" + id + ": " + new Date());
-            orderService.deleteById(id);
+            orderServiceImpl.deleteById(id);
             response.put("message", "Order has been delete");
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
         } catch (DataAccessException e) {

@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+
 public class CustomerEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

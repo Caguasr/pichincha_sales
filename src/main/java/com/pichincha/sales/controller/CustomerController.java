@@ -1,7 +1,7 @@
 package com.pichincha.sales.controller;
 
 import com.pichincha.sales.entity.CustomerEntity;
-import com.pichincha.sales.serviceImpl.CustomerService;
+import com.pichincha.sales.serviceImpl.CustomerServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -21,7 +21,7 @@ import java.util.*;
 public class CustomerController {
 
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceImpl customerServiceImpl;
 
     @GetMapping("/customer")
     private ResponseEntity<?> getAll() {
@@ -29,7 +29,7 @@ public class CustomerController {
         List<CustomerEntity> customer = new ArrayList<>();
         try {
             log.info("Request to find customers" + new Date());
-            customer = customerService.getAll();
+            customer = customerServiceImpl.getAll();
 
         } catch (DataAccessException e) {
             response.put("message", "Error processing transaction");
